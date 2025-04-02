@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATRS - 青年手工艺人作品展示</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #4a4a4a;
+            background-color: #ffffff;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary {
+            background-color: #f8b6c3;
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 10px rgba(248, 182, 195, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: #f59eaf;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: #f8b6c3;
+            border: 1px solid #f8b6c3;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(248, 182, 195, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-upload {
+            background-color: #5aafcf;
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 10px rgba(90, 175, 207, 0.3);
+        }
+        
+        .btn-upload:hover {
+            background-color: #4a9ebf;
+            transform: translateY(-2px);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #e8f4f8;
+            color: #5aafcf;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .section {
+            padding: 70px 0;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            text-align: center;
+            color: #333333;
+        }
+        
+        .section-desc {
+            font-size: 16px;
+            color: #777777;
+            max-width: 600px;
+            margin: 0 auto 50px;
+            text-align: center;
+            line-height: 1.7;
+        }
+        
+        /* 头部样式 */
+        header {
+            border-bottom: 1px solid #f0f0f0;
+            background-color: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 500;
+            color: #f8b6c3;
+        }
+        
+        .nav-menu {
+            display: flex;
+        }
+        
+        .nav-menu li {
+            margin-left: 32px;
+        }
+        
+        .nav-menu a {
+            font-size: 15px;
+            font-weight: 400;
+            color: #4a4a4a;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            color: #f8b6c3;
+        }
+        
+        .header-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-icon {
+            margin-left: 16px;
+            color: #4a4a4a;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .header-icon:hover {
+            color: #f8b6c3;
+        }
+        
+        /* 英雄区样式 */
+        .hero {
+            position: relative;
+            padding: 80px 0;
+            background-color: #fdf8f9;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(248, 182, 195, 0.1);
+            z-index: 0;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(90, 175, 207, 0.1);
+            z-index: 0;
+        }
+        
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            max-width: 500px;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 500;
+            line-height: 1.2;
+            margin: 16px 0;
+            color: #333333;
+        }
+        
+        .hero-desc {
+            color: #777777;
+            margin-bottom: 30px;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .hero-image {
+            position: relative;
+            height: 450px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .wave-divider {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* 产品展示样式 */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-image {
+            aspect-ratio: 1/1;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .product-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #333333;
+        }
+        
+        .product-category {
+            font-size: 14px;
+            color: #777777;
+        }
+        
+        .product-price {
+            font-weight: 500;
+            color: #f8b6c3;
+        }
+        
+        .product-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .view-more {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .edit-product-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .edit-product-btn:hover {
+            background-color: #f8b6c3;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        /* 工艺师部分样式 */
+        .craftsmanship {
+            background-color: #f9fbfd;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .craftsmanship::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(90, 175, 207, 0.1);
+            z-index: 0;
+        }
+        
+        .craftsmanship-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .craftsmanship-image {
+            height: 550px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .craftsmanship-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .craftsmanship-content {
+            padding-left: 20px;
+        }
+        
+        .craftsmanship-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 500;
+            margin: 16px 0;
+            color: #333333;
+        }
+        
+        .craftsmanship-desc {
+            color: #777777;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        
+        .feature-list {
+            margin-bottom: 30px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .feature-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #5aafcf;
+            margin-right: 15px;
+        }
+        
+        /* 分类部分样式 */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .category-card {
+            position: relative;
+            height: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+        
+        .category-name {
+            color: white;
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .category-count {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+        }
+        
+        /* 订阅部分样式 */
+        .newsletter {
+            background-color: #fdf8f9;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(248, 182, 195, 0.1);
+            z-index: 0;
+        }
+        
+        .newsletter::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(90, 175, 207, 0.1);
+            z-index: 0;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 30px;
+            margin-right: 12px;
+            font-size: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            border-color: #f8b6c3;
+            box-shadow: 0 5px 15px rgba(248, 182, 195, 0.2);
+        }
+        
+        /* 页脚样式 */
+        footer {
+            border-top: 1px solid #f0f0f0;
+            padding: 70px 0 30px;
+            background-color: #ffffff;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #f8b6c3;
+        }
+        
+        .footer-desc {
+            font-size: 14px;
+            color: #777777;
+            line-height: 1.7;
+        }
+        
+        .footer-title {
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            font-size: 14px;
+            color: #777777;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #f8b6c3;
+        }
+        
+        .footer-bottom {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+            text-align: center;
+            font-size: 13px;
+            color: #999999;
+        }
+        
+        /* 装饰元素 */
+        .dot-pattern {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-image: radial-gradient(#f8b6c3 1px, transparent 1px);
+            background-size: 10px 10px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        /* 弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 50px 0;
+        }
+        
+        .modal-content {
+            background-color: white;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: #f8b6c3;
+        }
+        
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #f8b6c3;
+            box-shadow: 0 0 0 3px rgba(248, 182, 195, 0.2);
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 2px dashed #e0e0e0;
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .image-preview-text {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .modal-footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .product-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .product-select-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #e0e0e0;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .product-select-btn.active {
+            background-color: #f8b6c3;
+            color: white;
+            border-color: #f8b6c3;
+        }
+        
+        /* 响应式样式 */
+        @media (max-width: 992px) {
+            .hero-container, .craftsmanship-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content, .craftsmanship-content {
+                max-width: 100%;
+                text-align: center;
+            }
+            
+            .hero-buttons, .feature-list {
+                justify-content: center;
+            }
+            
+            .feature-item {
+                justify-content: center;
+            }
+            
+            .craftsmanship-content {
+                padding-left: 0;
+                order: -1;
+            }
+            
+            .hero-title {
+                font-size: 36px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .section {
+                padding: 50px 0;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .modal-content {
+                margin: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">ATRS</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">作品集</a></li>
+                    <li><a href="#">创作故事</a></li>
+                    <li><a href="#">关于我</a></li>
+                    <li><button class="btn btn-upload" id="uploadBtn" style="padding: 8px 16px; font-size: 14px;">上传商品</button></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <div class="header-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+                <div class="header-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区 -->
+    <section class="hero">
+        <div class="dot-pattern" style="top: 50px; right: 10%;"></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="badge">手作温度</div>
+                <h1 class="hero-title">用双手创造<br>生活的美好</h1>
+                <p class="hero-desc">每一件手工艺品都是独一无二的存在，承载着创作者的情感与故事，为日常生活增添一抹温暖色彩。</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">
+                        探索作品集
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                    <button class="btn btn-outline">创作故事</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://via.placeholder.com/600x800" alt="手工艺品展示">
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品展示 -->
+    <section class="section">
+        <div class="dot-pattern" style="bottom: 50px; left: 5%;"></div>
+        <div class="container">
+            <h2 class="section-title">精选作品</h2>
+            <p class="section-desc">每一件作品都融入了创意与匠心，为生活增添一份独特的艺术气息</p>
+            <div class="products-grid">
+                <div class="product-card" id="product0">
+                    <div class="product-image" style="position: relative;">
+                        <img src="image/toy.jpg" alt="手工玩偶" id="product0-img">
+                        <div class="edit-product-btn" data-product="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div>
+                            <h3 class="product-name" id="product0-name">手工玩偶</h3>
+                            <p class="product-category" id="product0-category">玩偶系列</p>
+                        </div>
+                        <p class="product-price" id="product0-price">暂不售卖</p>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-outline" style="font-size: 14px; padding: 8px 16px;">查看详情</button>
+                        <div style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 产品1 -->
+                <div class="product-card" id="product1">
+                    <div class="product-image" style="position: relative;">
+                        <img src="https://via.placeholder.com/500x500" alt="手工编织包" id="product1-img">
+                        <div class="edit-product-btn" data-product="1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div>
+                            <h3 class="product-name" id="product1-name">彩虹编织手提包</h3>
+                            <p class="product-category" id="product1-category">编织系列</p>
+                        </div>
+                        <p class="product-price" id="product1-price">¥268</p>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-outline" style="font-size: 14px; padding: 8px 16px;">查看详情</button>
+                        <div style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; transition: all 0.3s ease;">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 产品2 -->
+                <div class="product-card" id="product2">
+                    <div class="product-image" style="position: relative;">
+                        <img src="https://via.placeholder.com/500x500" alt="手工陶瓷杯" id="product2-img">
+                        <div class="edit-product-btn" data-product="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div>
+                            <h3 class="product-name" id="product2-name">星空陶瓷杯</h3>
+                            <p class="product-category" id="product2-category">陶艺系列</p>
+                        </div>
+                        <p class="product-price" id="product2-price">¥198</p>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-outline" style="font-size: 14px; padding: 8px 16px;">查看详情</button>
+                        <div style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 产品3 -->
+                <div class="product-card" id="product3">
+                    <div class="product-image" style="position: relative;">
+                        <img src="https://via.placeholder.com/500x500" alt="手工刺绣装饰画" id="product3-img">
+                        <div class="edit-product-btn" data-product="3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div>
+                            <h3 class="product-name" id="product3-name">花语刺绣装饰画</h3>
+                            <p class="product-category" id="product3-category">刺绣系列</p>
+                        </div>
+                        <p class="product-price" id="product3-price">¥328</p>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-outline" style="font-size: 14px; padding: 8px 16px;">查看详情</button>
+                        <div style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; transition: all 0.3s ease;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="view-more">
+                <button class="btn btn-outline">
+                    浏览更多作品
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工艺师部分 -->
+    <section class="section craftsmanship">
+        <div class="container craftsmanship-container">
+            <div class="craftsmanship-image">
+                <img src="https://via.placeholder.com/800x1000" alt="手工创作过程">
+            </div>
+            <div class="craftsmanship-content">
+                <div class="badge">创作理念</div>
+                <h2 class="craftsmanship-title">用心感受，用手表达</h2>
+                <p class="craftsmanship-desc">我相信每一件手工艺品都应该有自己的灵魂和故事。在创作过程中，我注重材料的质感与色彩的和谐，希望通过作品传递生活中的美好与感动。</p>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <div class="feature-dot"></div>
+                        <span>环保可持续材料</span>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-dot"></div>
+                        <span>现代设计美学</span>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-dot"></div>
+                        <span>注重细节与品质</span>
+                    </li>
+                </ul>
+                <button class="btn btn-primary">了解创作故事</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 分类部分 -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">探索创作系列</h2>
+            <p class="section-desc">每个系列都有其独特的灵感来源和设计理念，探索更多创意可能</p>
+            <div class="categories-grid">
+                <!-- 分类1 -->
+                <a href="#" class="category-card">
+                    <img src="https://via.placeholder.com/400x500" alt="陶艺系列">
+                    <div class="category-overlay">
+                        <h3 class="category-name">陶艺系列</h3>
+                        <p class="category-count">18件作品</p>
+                    </div>
+                </a>
+                
+                <!-- 分类2 -->
+                <a href="#" class="category-card">
+                    <img src="https://via.placeholder.com/400x500" alt="编织系列">
+                    <div class="category-overlay">
+                        <h3 class="category-name">编织系列</h3>
+                        <p class="category-count">24件作品</p>
+                    </div>
+                </a>
+                
+                <!-- 分类3 -->
+                <a href="#" class="category-card">
+                    <img src="https://via.placeholder.com/400x500" alt="刺绣系列">
+                    <div class="category-overlay">
+                        <h3 class="category-name">刺绣系列</h3>
+                        <p class="category-count">15件作品</p>
+                    </div>
+                </a>
+                
+                <!-- 分类4 -->
+                <a href="#" class="category-card">
+                    <img src="https://via.placeholder.com/400x500" alt="首饰系列">
+                    <div class="category-overlay">
+                        <h3 class="category-name">首饰系列</h3>
+                        <p class="category-count">22件作品</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 订阅部分 -->
+    <section class="section newsletter">
+        <div class="container">
+            <h2 class="section-title">订阅创作更新</h2>
+            <p class="section-desc">第一时间获取新作品发布、创作灵感分享和限量版作品预告</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="请输入您的邮箱地址" required>
+                <button type="submit" class="btn btn-primary">订阅</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">ATRS</div>
+                    <p class="footer-desc">一个充满创意与温度的手工艺品创作空间，每一件作品都倾注了对生活的热爱与对美的追求。</p>
+                </div>
+                <div>
+                    <h3 class="footer-title">快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">首页</a></li>
+                        <li><a href="#">作品集</a></li>
+                        <li><a href="#">创作故事</a></li>
+                        <li><a href="#">关于我</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">购物指南</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">配送信息</a></li>
+                        <li><a href="#">退换政策</a></li>
+                        <li><a href="#">常见问题</a></li>
+                        <li><a href="#">联系我</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">关注我</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">微信</a></li>
+                        <li><a href="#">小红书</a></li>
+                        <li><a href="#">抖音</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© <script>document.write(new Date().getFullYear())</script> ATRS 手工艺品创作室. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 上传商品弹窗 -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2 class="modal-title">上传商品</h2>
+            
+            <div class="product-selector">
+                <button class="product-select-btn active" data-product="1">商品1</button>
+                <button class="product-select-btn" data-product="2">商品2</button>
+                <button class="product-select-btn" data-product="3">商品3</button>
+            </div>
+            
+            <div class="form-group">
+                <div class="image-preview" id="imagePreview">
+                    <img id="previewImg" src="/placeholder.svg" alt="预览图">
+                    <div class="image-preview-text" id="previewText">选择图片预览</div>
+                </div>
+                <div class="file-input-wrapper">
+                    <button class="btn btn-outline" style="width: 100%;">
+                        选择图片
+                        <input type="file" id="productImage" accept="image/*">
+                    </button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="productName">商品名称</label>
+                <input type="text" id="productName" class="form-input" placeholder="请输入商品名称">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="productCategory">商品系列</label>
+                <input type="text" id="productCategory" class="form-input" placeholder="请输入商品系列">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="productPrice">商品价格</label>
+                <input type="text" id="productPrice" class="form-input" placeholder="请输入商品价格">
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="saveProduct">保存商品</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取DOM元素
+        const uploadBtn = document.getElementById('uploadBtn');
+        const uploadModal = document.getElementById('uploadModal');
+        const closeModal = document.getElementById('closeModal');
+        const productImage = document.getElementById('productImage');
+        const previewImg = document.getElementById('previewImg');
+        const previewText = document.getElementById('previewText');
+        const productName = document.getElementById('productName');
+        const productCategory = document.getElementById('productCategory');
+        const productPrice = document.getElementById('productPrice');
+        const saveProduct = document.getElementById('saveProduct');
+        const productSelectBtns = document.querySelectorAll('.product-select-btn');
+        const editProductBtns = document.querySelectorAll('.edit-product-btn');
+        
+        // 当前选中的商品
+        let currentProduct = 1;
+        
+        // 打开弹窗
+        uploadBtn.addEventListener('click', () => {
+            uploadModal.style.display = 'block';
+            loadProductData(currentProduct);
+        });
+        
+        // 关闭弹窗
+        closeModal.addEventListener('click', () => {
+            uploadModal.style.display = 'none';
+        });
+        
+        // 点击弹窗外部关闭弹窗
+        window.addEventListener('click', (e) => {
+            if (e.target === uploadModal) {
+                uploadModal.style.display = 'none';
+            }
+        });
+        
+        // 选择图片预览
+        productImage.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                    previewText.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // 选择商品
+        productSelectBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const productId = parseInt(btn.dataset.product);
+                currentProduct = productId;
+                
+                // 更新按钮状态
+                productSelectBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // 加载商品数据
+                loadProductData(productId);
+            });
+        });
+        
+        // 编辑商品按钮
+        editProductBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const productId = parseInt(btn.dataset.product);
+                currentProduct = productId;
+                
+                // 更新按钮状态
+                productSelectBtns.forEach(b => {
+                    if (parseInt(b.dataset.product) === productId) {
+                        b.classList.add('active');
+                    } else {
+                        b.classList.remove('active');
+                    }
+                });
+                
+                // 打开弹窗并加载数据
+                uploadModal.style.display = 'block';
+                loadProductData(productId);
+            });
+        });
+        
+        // 加载商品数据
+        function loadProductData(productId) {
+            const img = document.getElementById(`product${productId}-img`);
+            const name = document.getElementById(`product${productId}-name`);
+            const category = document.getElementById(`product${productId}-category`);
+            const price = document.getElementById(`product${productId}-price`);
+            
+            // 如果图片不是默认图片，则显示在预览中
+            if (img.src && !img.src.includes('placeholder')) {
+                previewImg.src = img.src;
+                previewImg.style.display = 'block';
+                previewText.style.display = 'none';
+            } else {
+                previewImg.style.display = 'none';
+                previewText.style.display = 'block';
+            }
+            
+            productName.value = name.textContent;
+            productCategory.value = category.textContent;
+            productPrice.value = price.textContent.replace('¥', '');
+        }
+        
+        // 保存商品
+        saveProduct.addEventListener('click', () => {
+            const img = document.getElementById(`product${currentProduct}-img`);
+            const name = document.getElementById(`product${currentProduct}-name`);
+            const category = document.getElementById(`product${currentProduct}-category`);
+            const price = document.getElementById(`product${currentProduct}-price`);
+            
+            // 更新商品数据
+            if (previewImg.src && previewImg.style.display !== 'none') {
+                img.src = previewImg.src;
+            }
+            
+            name.textContent = productName.value;
+            category.textContent = productCategory.value;
+            price.textContent = `¥${productPrice.value}`;
+            
+            // 关闭弹窗
+            uploadModal.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
